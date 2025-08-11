@@ -15,12 +15,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import ru.exegguto.aiadvent.chat.data.Message
 import ru.exegguto.aiadvent.chat.data.MessageRole
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonPrimitive
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -146,17 +151,60 @@ private fun AssistantBubble(message: Message) {
                     .align(Alignment.CenterStart)
                     .animateContentSize()
             ) {
-                Text(
-                    text = message.content,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
                 val p = message.assistantParams
-                if (p != null) {
-                    val info = buildString {
-                        append(p.modelId)
-                        val inT = p.usagePromptTokens
-                        val outT = p.usageCompletionTokens
-                        val ttl = p.usageTotalTokens
+                val structured = p?.structured
+                val hasStructured = structured != null
+
+                if (hasStructured) {
+                    val answerEl: JsonElement? = structured!!["answer"]
+                    val answer: String? = (answerEl as? JsonPrimitive)?.content
+
+                    val pointsEl: JsonElement? = structured["points"]
+                    val points: List<String> = pointsEl?.jsonArray?.mapNotNull { el: JsonElement ->
+                        (el as? JsonPrimitive)?.content
+                    } ?: emptyList()
+
+                    val summaryEl: JsonElement? = structured["summary"]
+                    val summary: String? = (summaryEl as? JsonPrimitive)?.content
+
+                    if (!answer.isNullOrBlank()) {
+                        Text(
+                            text = answer,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                    if (points.isNotEmpty()) {
+                        Spacer(Modifier.height(4.dp))
+                        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                            points.forEach { pt: String ->
+                                Text(
+                                    text = "• $pt",
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+                    }
+                    if (!summary.isNullOrBlank()) {
+                        Spacer(Modifier.height(6.dp))
+                        Text(
+                            text = summary,
+                            style = MaterialTheme.typography.bodySmall.copy(fontStyle = FontStyle.Italic),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                } else {
+                    Text(
+                        text = message.content,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+
+                val info = p?.let {
+                    buildString {
+                        append(it.modelId)
+                        val inT = it.usagePromptTokens
+                        val outT = it.usageCompletionTokens
+                        val ttl = it.usageTotalTokens
                         val parts = mutableListOf<String>()
                         if (inT != null) parts.add("input $inT")
                         if (outT != null) parts.add("output $outT")
@@ -166,27 +214,27 @@ private fun AssistantBubble(message: Message) {
                             append(parts.joinToString(", "))
                         }
                     }
+                }
+                if (!info.isNullOrBlank()) {
                     Text(
                         text = info,
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(top = 4.dp)
                     )
+                }
 
-                    // Show pretty JSON that we got from the model
-                    val structured = p.structured
-                    if (structured != null) {
-                        val pretty = runCatching {
-                            Json { prettyPrint = true }.encodeToString(structured)
-                        }.getOrNull()
-                        if (!pretty.isNullOrBlank()) {
-                            Text(
-                                text = pretty,
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                modifier = Modifier.padding(top = 8.dp)
-                            )
-                        }
+                if (structured != null) {
+                    val pretty = runCatching {
+                        Json { prettyPrint = true }.encodeToString(structured)
+                    }.getOrNull()
+                    if (!pretty.isNullOrBlank()) {
+                        Text(
+                            text = pretty,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(top = 8.dp)
+                        )
                     }
                 }
             }

@@ -67,7 +67,7 @@ class OpenAiAssistantService(
         val url = BuildKonfig.OPENAI_BASE_URL.trimEnd('/') + "/v1/chat/completions"
 
         val history = buildList {
-            add(ChatMessage("system", "Отвечай строго в формате JSON без markdown и лишнего текста. Схема ответа: {\"answer\": string, \"points\": string[], \"summary\": string}. Пример: {\"answer\": \"краткий ответ\", \"points\":[\"пункт 1\",\"пункт 2\"], \"summary\": \"итог\"}. Если данных не хватает — возвращай пустые массивы/пустые строки, но JSON должен быть валидным."))
+            add(ChatMessage("system", "Отвечай строго в формате JSON без markdown и лишнего текста. Схема ответа: {\"answer\": string, \"points\": string[], \"summary\": string}. Пример: {\"answer\": \"краткий ответ\", \"points\":[\"шаг размышления 1\",\"шаг размышления 2\"], \"summary\": \"итог\"}. Если данных не хватает — возвращай данные так, чтобы JSON был валидным."))
             messages.forEach { msg ->
                 add(ChatMessage(mapRole(msg.role), msg.content))
             }
