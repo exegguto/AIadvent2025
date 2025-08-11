@@ -21,6 +21,7 @@ import kotlinx.serialization.json.longOrNull
 import ru.exegguto.aiadvent.BuildKonfig
 import ru.exegguto.aiadvent.chat.data.AssistantMessageParams
 import ru.exegguto.aiadvent.chat.data.Message
+import ru.exegguto.aiadvent.chat.data.MessageRole
 
 class OpenAiAssistantService(
     private val apiKeyOverride: String? = null,
@@ -49,6 +50,12 @@ class OpenAiAssistantService(
         val content: String
     )
 
+    private fun mapRole(role: MessageRole): String = when (role) {
+        MessageRole.USER -> "user"
+        MessageRole.ASSISTANT -> "assistant"
+        MessageRole.SYSTEM -> "system"
+    }
+
     override suspend fun sendMessage(
         modelId: String,
         messages: List<Message>,
@@ -59,12 +66,16 @@ class OpenAiAssistantService(
 
         val url = BuildKonfig.OPENAI_BASE_URL.trimEnd('/') + "/v1/chat/completions"
 
+        val history = buildList {
+            add(ChatMessage("system", "You are a helpful assistant."))
+            messages.forEach { msg ->
+                add(ChatMessage(mapRole(msg.role), msg.content))
+            }
+        }
+
         val payload = ChatRequest(
             model = modelId,
-            messages = listOf(
-                ChatMessage("system", "You are a helpful assistant."),
-                ChatMessage("user", userInput)
-            )
+            messages = history
         )
 
         val response = http.post(url) {
