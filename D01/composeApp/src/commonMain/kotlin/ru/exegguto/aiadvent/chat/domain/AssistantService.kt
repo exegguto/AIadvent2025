@@ -1,8 +1,17 @@
 package ru.exegguto.aiadvent.chat.domain
 
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import ru.exegguto.aiadvent.chat.data.AssistantMessageParams
 import ru.exegguto.aiadvent.chat.data.Message
-import ru.exegguto.aiadvent.chat.data.MessageRole
+
+sealed class AssistantStreamEvent {
+    data class Delta(val textDelta: String) : AssistantStreamEvent()
+    data class Completed(
+        val fullText: String,
+        val params: AssistantMessageParams
+    ) : AssistantStreamEvent()
+}
 
 interface AssistantService {
     suspend fun sendMessage(
@@ -10,6 +19,16 @@ interface AssistantService {
         messages: List<Message>,
         userInput: String,
     ): Pair<String, AssistantMessageParams>
+
+    fun streamMessage(
+        modelId: String,
+        messages: List<Message>,
+        userInput: String,
+    ): Flow<AssistantStreamEvent> = flow {
+        val (text, params) = sendMessage(modelId, messages, userInput)
+        emit(AssistantStreamEvent.Delta(text))
+        emit(AssistantStreamEvent.Completed(text, params))
+    }
 }
 
 class DipseekAssistantService : AssistantService {

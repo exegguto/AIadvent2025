@@ -5,6 +5,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
@@ -88,7 +89,14 @@ fun ChatScreen(viewModel: ChatViewModel) {
 
 @Composable
 private fun MessagesList(messages: List<Message>) {
+    val listState = rememberLazyListState()
+    LaunchedEffect(messages.size) {
+        if (messages.isNotEmpty()) {
+            listState.animateScrollToItem(messages.lastIndex)
+        }
+    }
     LazyColumn(
+        state = listState,
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 12.dp, vertical = 8.dp),
@@ -97,8 +105,8 @@ private fun MessagesList(messages: List<Message>) {
         items(messages) { msg ->
             when (msg.role) {
                 MessageRole.USER -> UserBubble(msg.content)
-                MessageRole.ASSISTANT -> AssistantBubble(msg.content)
-                else -> AssistantBubble(msg.content)
+                MessageRole.ASSISTANT -> AssistantBubble(msg)
+                else -> AssistantBubble(msg)
             }
         }
     }
@@ -125,19 +133,45 @@ private fun UserBubble(text: String) {
 }
 
 @Composable
-private fun AssistantBubble(text: String) {
+private fun AssistantBubble(message: Message) {
     Row(Modifier.fillMaxWidth()) {
         Box(
             modifier = Modifier
                 .fillMaxWidth(0.9f)
         ) {
-            Text(
-                text = text,
+            Column(
                 modifier = Modifier
                     .align(Alignment.CenterStart)
-                    .animateContentSize(),
-                color = MaterialTheme.colorScheme.onSurface
-            )
+                    .animateContentSize()
+            ) {
+                Text(
+                    text = message.content,
+                    color = MaterialTheme.colorScheme.onSurface
+                )
+                val p = message.assistantParams
+                if (p != null) {
+                    val info = buildString {
+                        append(p.modelId)
+                        val inT = p.usagePromptTokens
+                        val outT = p.usageCompletionTokens
+                        val ttl = p.usageTotalTokens
+                        val parts = mutableListOf<String>()
+                        if (inT != null) parts.add("input $inT")
+                        if (outT != null) parts.add("output $outT")
+                        if (ttl != null) parts.add("total $ttl")
+                        if (parts.isNotEmpty()) {
+                            append("  •  ")
+                            append(parts.joinToString(", "))
+                        }
+                    }
+                    Text(
+                        text = info,
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
+            }
         }
     }
 }

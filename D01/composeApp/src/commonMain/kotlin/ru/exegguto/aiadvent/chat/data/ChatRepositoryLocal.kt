@@ -35,6 +35,26 @@ class ChatRepositoryLocal(
         updated
     }
 
+    override suspend fun updateMessageContent(chatId: String, messageId: String, newContent: String) = withContext(Dispatchers.Default) {
+        val current = store.loadChat(chatId) ?: error("Chat not found")
+        val updatedMessages = current.messages.map { msg ->
+            if (msg.id == messageId) msg.copy(content = newContent) else msg
+        }
+        val updated = current.copy(messages = updatedMessages)
+        store.saveChat(updated)
+        updated
+    }
+
+    override suspend fun updateMessageParams(chatId: String, messageId: String, params: AssistantMessageParams) = withContext(Dispatchers.Default) {
+        val current = store.loadChat(chatId) ?: error("Chat not found")
+        val updatedMessages = current.messages.map { msg ->
+            if (msg.id == messageId) msg.copy(assistantParams = params) else msg
+        }
+        val updated = current.copy(messages = updatedMessages)
+        store.saveChat(updated)
+        updated
+    }
+
     override suspend fun deleteChat(chatId: String) = withContext(Dispatchers.Default) {
         store.deleteChat(chatId)
     }

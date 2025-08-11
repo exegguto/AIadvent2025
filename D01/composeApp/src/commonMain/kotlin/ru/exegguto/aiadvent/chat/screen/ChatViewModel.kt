@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.exegguto.aiadvent.chat.data.Chat
 import ru.exegguto.aiadvent.chat.data.ChatSummary
@@ -82,9 +83,9 @@ class ChatViewModel(
         state = state.copy(isSending = true, inputText = "")
         scope.launch {
             try {
-                interactor.sendUserMessage(chatId, text, state.currentModelId)
-                val updated = repository.getChat(chatId)
-                state = state.copy(currentChat = updated)
+                interactor.sendUserMessageStream(chatId, text, state.currentModelId).collect { updatedChat ->
+                    state = state.copy(currentChat = updatedChat)
+                }
                 refreshChats()
             } finally {
                 state = state.copy(isSending = false)
