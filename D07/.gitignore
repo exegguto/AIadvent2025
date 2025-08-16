@@ -3,7 +3,7 @@
 .gradle
 **/build/
 xcuserdata
-src/**/build/
+!src/**/build/
 local.properties
 .idea
 .DS_Store
@@ -17,11 +17,3 @@ captures
 !*.xcworkspace/contents.xcworkspacedata
 **/xcshareddata/WorkspaceSettings.xcsettings
 .env
-D01/
-D02/
-D03/
-D04/
-D05/
-D06/.kotlin
-D06/.gradle
-D06/build
