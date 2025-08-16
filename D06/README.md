@@ -1,58 +1,16 @@
-# AI Advent 2025 - Day 5
+This is a Kotlin Multiplatform project targeting Android, iOS.
 
-Это приложение "Лига знаний" - школьный дневник с расписанием уроков.
+* [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
+  It contains several subfolders:
+  - [commonMain](./composeApp/src/commonMain/kotlin) is for code that’s common for all targets.
+  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
+    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
+    the [iosMain](./composeApp/src/iosMain/kotlin) folder would be the right place for such calls.
+    Similarly, if you want to edit the Desktop (JVM) specific part, the [jvmMain](./composeApp/src/jvmMain/kotlin)
+    folder is the appropriate location.
 
-## Функциональность
+* [/iosApp](./iosApp/iosApp) contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform,
+  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
 
-### Экран расписания (ScheduleScreen)
-- **Статус бар** с временем и индикаторами связи
-- **Заголовок** с логотипом "Лига знаний" и кнопкой меню
-- **Ряд аватаров** учеников с выделением активных
-- **Календарь** с выбором дня недели
-- **Список уроков** с детальной информацией:
-  - Номер урока и время
-  - Название предмета
-  - Домашнее задание
-  - Оценки (если есть)
-  - Детальная информация по уроку (для алгебры):
-    - Домашнее задание с комментарием
-    - Тема урока
-    - Оценки за работу на уроке, поведение и контрольную
-- **Нижняя навигация** с тремя разделами: Дневник, Обучение, Отметки
 
-## Архитектура
-
-### Структура проекта
-```
-schedule/
-├── data/
-│   └── ScheduleModels.kt      # Модели данных
-└── screen/
-    ├── ScheduleScreen.kt      # UI экрана
-    └── ScheduleViewModel.kt   # ViewModel
-```
-
-### Модели данных
-- `Lesson` - информация об уроке
-- `LessonDetails` - детальная информация об уроке
-- `DaySchedule` - расписание на день
-- `WeekSchedule` - расписание на неделю
-
-## Технологии
-
-- **Kotlin Multiplatform** с Compose Multiplatform
-- **Material Design 3** для UI компонентов
-- **MVVM архитектура** с ViewModel
-- **LazyColumn/LazyRow** для эффективного списка
-
-## Запуск
-
-Приложение готово к запуску на Android и iOS. Экран расписания является стартовым экраном приложения.
-
-## Дизайн
-
-UI полностью соответствует дизайну из Figma с точным воспроизведением:
-- Цветовой схемы (красный #CD2415, серый #858585, зеленый #00A753)
-- Размеров и отступов
-- Типографики и иконок
-- Интерактивных элементов
+Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
