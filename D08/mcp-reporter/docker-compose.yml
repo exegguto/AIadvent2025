@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mcp-reporter:
+    build: .
+    container_name: mcp-reporter
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    environment:
+      - NODE_ENV=production
+      - TG_BOT_TOKEN=${TG_BOT_TOKEN}
+      - TG_CHAT_ID=${TG_CHAT_ID}
+      - GITHUB_PAT=${GITHUB_PAT}
+      - GITHUB_USER=${GITHUB_USER}
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    driver: bridge
