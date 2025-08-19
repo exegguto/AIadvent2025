@@ -17,6 +17,13 @@ class ChatAgent {
       // Обрабатываем сообщение через LLM
       const llmResponse = await llmService.processMessage(userMessage);
       
+      // Отладочная информация
+      logger.info('LLM Response received', { 
+        textLength: llmResponse.text?.length || 0,
+        codeBlocksCount: llmResponse.codeBlocks?.length || 0,
+        hasCode: llmResponse.hasCode
+      });
+      
       // Добавляем сообщение пользователя в историю
       history.push({
         role: 'user',

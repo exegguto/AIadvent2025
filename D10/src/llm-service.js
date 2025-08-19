@@ -101,7 +101,7 @@ class LLMService {
         body: JSON.stringify({
           model: this.model,
           messages,
-          max_completion_tokens: 2000
+          max_completion_tokens: 4000
         })
       };
 
@@ -244,6 +244,14 @@ class LLMService {
   _parseResponse(llmResponse) {
     const codeBlocks = this._extractCodeBlocks(llmResponse);
     const textResponse = this._extractText(llmResponse);
+    
+    // Отладочная информация
+    logger.info('Parsing LLM response', { 
+      originalLength: llmResponse?.length || 0,
+      textLength: textResponse?.length || 0,
+      codeBlocksCount: codeBlocks?.length || 0,
+      hasCode: codeBlocks.length > 0
+    });
     
     return {
       text: textResponse,
