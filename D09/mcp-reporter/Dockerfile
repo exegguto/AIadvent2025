@@ -16,13 +16,13 @@ COPY src/ ./src/
 COPY minimal-push-mcp-server/ ./minimal-push-mcp-server/
 
 # Собираем минимальный MCP сервер
-RUN cd minimal-push-mcp-server && npm ci && npm run build
+RUN cd minimal-push-mcp-server && npm ci && npm run build && cd ..
 
 # Копируем MCP Telegram сервер
 COPY mcp-telegram-server/ ./mcp-telegram-server/
 
 # Собираем MCP Telegram сервер
-RUN cd mcp-telegram-server && npm ci && npm run build
+RUN cd mcp-telegram-server && npm ci && npm run build && cd ..
 
 # Удаляем dev зависимости для уменьшения размера
 RUN npm prune --production

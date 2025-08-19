@@ -257,17 +257,46 @@ cat data/state.json
 
 ## Docker
 
-### Сборка и запуск
+Система работает в одном контейнере:
+
+- **mcp-reporter** - Основной оркестратор, который запускает MCP серверы как подпроцессы через stdio
+  - Включает в себя GitHub MCP сервер для получения статистики пушей
+  - Включает в себя Telegram MCP сервер для отправки сообщений
+  - Координирует работу всех компонентов
+
+### Быстрый запуск
+
+```bash
+# Запуск всех сервисов
+./docker-start.sh
+
+# Остановка всех сервисов
+./docker-stop.sh
+
+# Просмотр логов
+./docker-logs.sh
+```
+
+### Детальное управление
 
 ```bash
 # Сборка всех образов
-docker-compose build
+docker-compose build --no-cache
 
-# Запуск
+# Запуск всех сервисов
 docker-compose up -d
+
+# Просмотр статуса
+docker-compose ps
 
 # Просмотр логов
 docker-compose logs -f
+
+# Логи в реальном времени
+./docker-logs.sh follow
+
+# Остановка
+docker-compose down
 ```
 
 ### Docker Compose
@@ -276,6 +305,7 @@ docker-compose logs -f
 version: '3.8'
 
 services:
+  # Main MCP Reporter Orchestrator (включает MCP серверы как подпроцессы)
   mcp-reporter:
     build: .
     container_name: mcp-reporter
@@ -283,14 +313,10 @@ services:
     volumes:
       - ./data:/data
     environment:
-      - NODE_ENV=production
       - TG_BOT_TOKEN=${TG_BOT_TOKEN}
       - TG_CHAT_ID=${TG_CHAT_ID}
       - GITHUB_PAT=${GITHUB_PAT}
       - GITHUB_USER=${GITHUB_USER}
-      - HOURLY_WINDOW_HOURS=${HOURLY_WINDOW_HOURS:-1}
-      - REPORT_TIME=${REPORT_TIME:-22:00}
-      - STATE_PATH=/data/state.json
 ```
 
 ## Структура проекта

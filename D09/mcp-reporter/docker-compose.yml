@@ -1,6 +1,7 @@
 version: '3.8'
 
 services:
+  # Main MCP Reporter Orchestrator (включает MCP серверы как подпроцессы)
   mcp-reporter:
     build: .
     container_name: mcp-reporter
@@ -18,7 +19,6 @@ services:
       - STATE_PATH=/data/state.json
     networks:
       - mcp-network
-    depends_on: []
 
 networks:
   mcp-network:

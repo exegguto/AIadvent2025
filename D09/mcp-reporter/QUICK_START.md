@@ -78,7 +78,11 @@ npm start
 
 #### Docker запуск
 ```bash
-docker-compose up --build
+# Быстрый запуск всех сервисов
+./docker-start.sh
+
+# Или вручную
+docker-compose up --build -d
 ```
 
 ## 📊 Что происходит
