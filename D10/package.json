@@ -16,7 +16,10 @@
     "helmet": "^7.1.0",
     "dotenv": "^16.3.1",
     "uuid": "^9.0.1",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "https-proxy-agent": "^7.0.2",
+    "socks-proxy-agent": "^8.0.2",
+    "axios": "^1.6.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",

@@ -1,5 +1,6 @@
 import express from 'express';
 import { aiAgent } from './ai-agent.js';
+import { chatAgent } from './chat-agent.js';
 import { logger } from './logger.js';
 import { config } from './config.js';
 
@@ -141,6 +142,86 @@ router.get('/languages', (req, res) => {
       ]
     }
   });
+});
+
+// Чат с AI
+router.post('/chat', async (req, res) => {
+  try {
+    const { message, sessionId } = req.body;
+    
+    if (!message) {
+      return res.status(400).json({
+        success: false,
+        error: 'Message is required'
+      });
+    }
+    
+    const result = await chatAgent.processChatMessage(sessionId || 'default', message);
+    res.json(result);
+  } catch (error) {
+    logger.error('Chat endpoint error', { error: error.message });
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error'
+    });
+  }
+});
+
+// Получение истории чата
+router.get('/chat/history', async (req, res) => {
+  try {
+    const { sessionId, limit = 20 } = req.query;
+    const history = await chatAgent.getConversationHistory(sessionId || 'default', parseInt(limit));
+    
+    res.json({
+      success: true,
+      data: history,
+      count: history.length
+    });
+  } catch (error) {
+    logger.error('Chat history endpoint error', { error: error.message });
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error'
+    });
+  }
+});
+
+// Очистка истории чата
+router.delete('/chat/history', async (req, res) => {
+  try {
+    const { sessionId } = req.query;
+    await chatAgent.clearConversation(sessionId || 'default');
+    
+    res.json({
+      success: true,
+      message: 'Conversation history cleared'
+    });
+  } catch (error) {
+    logger.error('Clear chat history error', { error: error.message });
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error'
+    });
+  }
+});
+
+// Статистика чата
+router.get('/chat/stats', async (req, res) => {
+  try {
+    const stats = await chatAgent.getStats();
+    
+    res.json({
+      success: true,
+      data: stats
+    });
+  } catch (error) {
+    logger.error('Chat stats endpoint error', { error: error.message });
+    res.status(500).json({
+      success: false,
+      error: 'Internal server error'
+    });
+  }
 });
 
 // Обработка ошибок 404
