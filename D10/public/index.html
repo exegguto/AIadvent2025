@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Code Executor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        .input-section, .output-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 2px solid #4facfe;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, textarea:focus {
+            outline: none;
+            border-color: #4facfe;
+        }
+
+        textarea {
+            min-height: 200px;
+            resize: vertical;
+            font-family: 'Courier New', monospace;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            width: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .output-container {
+            background: #1e1e1e;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            min-height: 200px;
+            white-space: pre-wrap;
+            overflow-y: auto;
+        }
+
+        .success {
+            color: #50fa7b;
+        }
+
+        .error {
+            color: #ff5555;
+        }
+
+        .info {
+            color: #8be9fd;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4facfe;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4facfe;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AI Code Executor</h1>
+            <p>Execute code safely in Docker containers</p>
+        </div>
+
+        <div class="main-content">
+            <div class="input-section">
+                <h2 class="section-title">📝 Code Input</h2>
+                
+                <div class="form-group">
+                    <label for="language">Programming Language:</label>
+                    <select id="language">
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                        <option value="bash">Bash</option>
+                        <option value="java">Java</option>
+                        <option value="go">Go</option>
+                        <option value="rust">Rust</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="code">Code:</label>
+                    <textarea id="code" placeholder="Enter your code here...">print("Hello, AI World!")</textarea>
+                </div>
+
+                <button class="btn" onclick="executeCode()">🚀 Execute Code</button>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Executing code in Docker container...</p>
+                </div>
+            </div>
+
+            <div class="output-section">
+                <h2 class="section-title">📊 Output</h2>
+                <div class="output-container" id="output">
+                    <span class="info">Output will appear here...</span>
+                </div>
+
+                <div class="stats" id="stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="totalExecutions">0</div>
+                        <div class="stat-label">Total Executions</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="successRate">0%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="activeContainers">0</div>
+                        <div class="stat-label">Active Containers</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = '/api';
+        let sessionId = 'web-' + Date.now();
+
+        async function executeCode() {
+            const language = document.getElementById('language').value;
+            const code = document.getElementById('code').value;
+            const output = document.getElementById('output');
+            const loading = document.getElementById('loading');
+            const btn = document.querySelector('.btn');
+
+            if (!code.trim()) {
+                showOutput('Please enter some code to execute.', 'error');
+                return;
+            }
+
+            // Show loading
+            loading.style.display = 'block';
+            btn.disabled = true;
+            output.innerHTML = '<span class="info">Executing...</span>';
+
+            try {
+                const response = await fetch(`${API_BASE}/execute`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        language,
+                        code,
+                        sessionId
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    let outputText = `✅ Execution successful!\n\n`;
+                    outputText += `📋 Output:\n${result.result.output}\n\n`;
+                    
+                    if (result.result.error) {
+                        outputText += `⚠️  Warnings/Errors:\n${result.result.error}\n\n`;
+                    }
+                    
+                    outputText += `🆔 Container ID: ${result.containerId}\n`;
+                    outputText += `⏰ Timestamp: ${new Date(result.timestamp).toLocaleString()}`;
+                    
+                    showOutput(outputText, 'success');
+                } else {
+                    showOutput(`❌ Execution failed: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showOutput(`❌ Network error: ${error.message}`, 'error');
+            } finally {
+                loading.style.display = 'none';
+                btn.disabled = false;
+                updateStats();
+            }
+        }
+
+        function showOutput(text, type) {
+            const output = document.getElementById('output');
+            output.textContent = text;
+            output.className = `output-container ${type}`;
+        }
+
+        async function updateStats() {
+            try {
+                const response = await fetch(`${API_BASE}/stats`);
+                const result = await response.json();
+
+                if (result.success) {
+                    const stats = result.data;
+                    
+                    document.getElementById('totalExecutions').textContent = 
+                        stats.history.totalExecutions || 0;
+                    
+                    const successRate = stats.history.totalExecutions > 0 
+                        ? Math.round((stats.history.successStats.success / stats.history.totalExecutions) * 100)
+                        : 0;
+                    document.getElementById('successRate').textContent = successRate + '%';
+                    
+                    document.getElementById('activeContainers').textContent = 
+                        stats.containers.activeContainers || 0;
+                }
+            } catch (error) {
+                console.error('Failed to update stats:', error);
+            }
+        }
+
+        // Load initial stats
+        updateStats();
+
+        // Auto-execute on Enter (Ctrl+Enter)
+        document.getElementById('code').addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                executeCode();
+            }
+        });
+
+        // Example code templates
+        const examples = {
+            python: 'print("Hello from Python!")\nfor i in range(5):\n    print(f"Count: {i}")',
+            javascript: 'console.log("Hello from JavaScript!");\nfor(let i = 0; i < 5; i++) {\n    console.log(`Count: ${i}`);\n}',
+            bash: 'echo "Hello from Bash!"\nfor i in {1..5}; do\n    echo "Count: $i"\ndone',
+            java: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello from Java!");\n        for(int i = 0; i < 5; i++) {\n            System.out.println("Count: " + i);\n        }\n    }\n}',
+            go: 'package main\n\nimport "fmt"\n\nfunc main() {\n    fmt.Println("Hello from Go!")\n    for i := 0; i < 5; i++ {\n        fmt.Printf("Count: %d\\n", i)\n    }\n}',
+            rust: 'fn main() {\n    println!("Hello from Rust!");\n    for i in 0..5 {\n        println!("Count: {}", i);\n    }\n}'
+        };
+
+        document.getElementById('language').addEventListener('change', (e) => {
+            const language = e.target.value;
+            if (examples[language]) {
+                document.getElementById('code').value = examples[language];
+            }
+        });
+    </script>
+</body>
+</html>
