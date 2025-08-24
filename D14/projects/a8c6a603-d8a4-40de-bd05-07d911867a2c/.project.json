@@ -1,0 +1,23 @@
+{
+  "id": "a8c6a603-d8a4-40de-bd05-07d911867a2c",
+  "name": "тест1",
+  "language": "python",
+  "createdAt": "2025-08-23T18:08:05.494Z",
+  "updatedAt": "2025-08-23T18:35:33.796Z",
+  "files": [
+    {
+      "name": "calculate_pi.py",
+      "content": "import math\n\ndef calculate_pi(precision=6):\n    \"\"\"\n    Возвращает значение числа Pi с заданной точностью после запятой.\n    \"\"\"\n    q, r, t, k, n, l = 1, 0, 1, 1, 3, 3\n    decimal = 0\n    counter = 0\n    pi = \"\"\n    while counter < precision + 1:\n        if 4*q+r-t < n*t:\n            pi += str(n)\n            if counter == 0:\n                pi += \".\"\n            if decimal == 10:\n                decimal = 0\n            counter += 1\n            nr = 10*(r-n*t)\n            n = ((10*(3*q+r))//t)-10*n\n            q *= 10\n            r = nr\n        else:\n            nr = (2*q+r)*l\n            nn = (q*(7*k+2)+r*l)//(t*l)\n            q *= k\n            t *= l\n            l += 2\n            k += 1\n            n = nn\n            r = nr\n    return pi",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/a8c6a603-d8a4-40de-bd05-07d911867a2c/calculate_pi.py",
+      "lastModified": "2025-08-23T18:35:33.795Z"
+    },
+    {
+      "name": "test_calculate_pi.py",
+      "content": "import unittest\nfrom decimal import Decimal\nfrom calculate_pi import calculate_pi\n\nclass TestCalculatePi(unittest.TestCase):\n\n    def test_calculate_pi(self):\n        result = calculate_pi()\n        expected = round(Decimal(math.pi), 6)\n        self.assertEqual(Decimal(result), expected)\n\nif __name__ == \"__main__\":\n    unittest.main()",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/a8c6a603-d8a4-40de-bd05-07d911867a2c/test_calculate_pi.py",
+      "lastModified": "2025-08-23T18:35:33.796Z"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "942d638e-14f6-47b6-872f-558537565b1b",
+  "name": "Agent Notification Test",
+  "description": "Testing agent execution notifications",
+  "language": "python",
+  "createdAt": "2025-08-23T20:26:38.238Z",
+  "updatedAt": "2025-08-23T20:26:55.706Z",
+  "files": [
+    {
+      "name": "factorial.py",
+      "content": "def factorial(n: int) -> int:\n    if n < 0:\n        raise ValueError(\"Факториал не определен для отрицательных чисел\")\n    if n == 0 or n == 1:\n        return 1\n    return n * factorial(n - 1)",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/942d638e-14f6-47b6-872f-558537565b1b/factorial.py",
+      "lastModified": "2025-08-23T20:26:46.808Z"
+    },
+    {
+      "name": "test_factorial.py",
+      "content": "import unittest\nfrom factorial import factorial\n\nclass TestFactorial(unittest.TestCase):\n    def test_factorial_zero(self):\n        self.assertEqual(factorial(0), 1)\n\n    def test_factorial_one(self):\n        self.assertEqual(factorial(1), 1)\n\n    def test_factorial_positive(self):\n        self.assertEqual(factorial(5), 120)\n        self.assertEqual(factorial(3), 6)\n\n    def test_factorial_negative(self):\n        with self.assertRaises(ValueError):\n            factorial(-1)\n\nif __name__ == '__main__':\n    unittest.main()",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/942d638e-14f6-47b6-872f-558537565b1b/test_factorial.py",
+      "lastModified": "2025-08-23T20:26:46.814Z"
+    },
+    {
+      "name": "calculator.py",
+      "content": "def add(a, b):\n    \"\"\"Возвращает сумму двух чисел.\"\"\"\n    return a + b\n\ndef subtract(a, b):\n    \"\"\"Возвращает разность двух чисел.\"\"\"\n    return a - b",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/942d638e-14f6-47b6-872f-558537565b1b/calculator.py",
+      "lastModified": "2025-08-23T20:26:55.706Z"
+    }
+  ]
+}

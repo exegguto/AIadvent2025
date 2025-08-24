@@ -1,0 +1,24 @@
+{
+  "id": "0229e045-1e78-414c-9284-784421bc47bc",
+  "name": "File Creation Test",
+  "description": "Testing if files are created when LLM generates code",
+  "language": "python",
+  "createdAt": "2025-08-23T20:01:20.701Z",
+  "updatedAt": "2025-08-23T20:01:33.422Z",
+  "files": [
+    {
+      "name": "factorial.py",
+      "content": "def factorial(n):\n    \"\"\"Вычисляет факториал числа n.\"\"\"\n    if not isinstance(n, int) or n < 0:\n        raise ValueError(\"n должно быть неотрицательным целым числом.\")\n    \n    if n == 0 or n == 1:\n        return 1\n    return n * factorial(n - 1)",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/0229e045-1e78-414c-9284-784421bc47bc/factorial.py",
+      "lastModified": "2025-08-23T20:01:33.420Z"
+    },
+    {
+      "name": "test_factorial.py",
+      "content": "import unittest\nfrom factorial import factorial\n\nclass TestFactorial(unittest.TestCase):\n    \n    def test_factorial_base_cases(self):\n        self.assertEqual(factorial(0), 1)\n        self.assertEqual(factorial(1), 1)\n\n    def test_factorial_positive(self):\n        self.assertEqual(factorial(5), 120)\n        self.assertEqual(factorial(6), 720)\n\n    def test_factorial_negative(self):\n        with self.assertRaises(ValueError):\n            factorial(-1)\n\n    def test_factorial_non_integer(self):\n        with self.assertRaises(ValueError):\n            factorial(2.5)\n        with self.assertRaises(ValueError):\n            factorial(\"string\")\n\nif __name__ == '__main__':\n    unittest.main()",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/0229e045-1e78-414c-9284-784421bc47bc/test_factorial.py",
+      "lastModified": "2025-08-23T20:01:33.422Z"
+    }
+  ]
+}

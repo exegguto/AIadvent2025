@@ -1,0 +1,30 @@
+{
+  "id": "615d8057-b0bd-4302-8acc-2bc19970ee42",
+  "name": "тест4",
+  "language": "python",
+  "createdAt": "2025-08-24T04:01:32.086Z",
+  "updatedAt": "2025-08-24T04:55:29.322Z",
+  "files": [
+    {
+      "name": "calculate_pi.py",
+      "content": "import random\n\ndef calculate_pi(num_samples: int) -> float:\n    inside_circle = 0\n\n    for _ in range(num_samples):\n        x = random.uniform(-1, 1)\n        y = random.uniform(-1, 1)\n        if x**2 + y**2 <= 1:\n            inside_circle += 1\n\n    return round((inside_circle / num_samples) * 4, 5)\n\nif __name__ == \"__main__\":\n    num_samples = 1000000  # Число случайных точек\n    pi_value = calculate_pi(num_samples)\n    print(f\"Приближенное значение π: {pi_value}\")",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/615d8057-b0bd-4302-8acc-2bc19970ee42/calculate_pi.py",
+      "lastModified": "2025-08-24T04:01:47.519Z"
+    },
+    {
+      "name": "test_calculate_pi.py",
+      "content": "import pytest\nfrom calculate_pi import calculate_pi\n\ndef test_calculate_pi():\n    assert isinstance(calculate_pi(1000), float)\n    assert 3.14 <= calculate_pi(100000) <= 3.15  # Проверяем, что результат близок к известному значению π\n\nif __name__ == \"__main__\":\n    pytest.main()",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/615d8057-b0bd-4302-8acc-2bc19970ee42/test_calculate_pi.py",
+      "lastModified": "2025-08-24T04:01:47.520Z"
+    },
+    {
+      "name": "hello_docker.py",
+      "content": "print('Hello from Docker')",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/615d8057-b0bd-4302-8acc-2bc19970ee42/hello_docker.py",
+      "lastModified": "2025-08-24T04:55:29.322Z"
+    }
+  ]
+}

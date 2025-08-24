@@ -1,0 +1,23 @@
+{
+  "id": "6d7fce85-84a5-49aa-b27f-5ffb3848a742",
+  "name": "тест3",
+  "language": "python",
+  "createdAt": "2025-08-23T20:15:37.492Z",
+  "updatedAt": "2025-08-23T20:16:49.206Z",
+  "files": [
+    {
+      "name": "calculate_pi.py",
+      "content": "def calculate_pi(precision=5):\n    pi = 0\n    k = 0\n    \n    while True:\n        term = (1 / (16 ** k)) * (\n            (4 / (8 * k + 1)) - \n            (2 / (8 * k + 4)) - \n            (1 / (8 * k + 5)) - \n            (1 / (8 * k + 6))\n        )\n        pi += term\n        if abs(term) < 10**(-precision):\n            break\n        k += 1\n\n    return round(pi, precision)\n\nif __name__ == \"__main__\":\n    pi_value = calculate_pi(5)\n    print(f\"Число π до 5 знаков: {pi_value}\")",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/6d7fce85-84a5-49aa-b27f-5ffb3848a742/calculate_pi.py",
+      "lastModified": "2025-08-23T20:16:18.364Z"
+    },
+    {
+      "name": "test_calculate_pi.py",
+      "content": "import unittest\nfrom calculate_pi import calculate_pi\n\nclass TestCalculatePi(unittest.TestCase):\n    def test_calculate_pi_with_default_precision(self):\n        self.assertEqual(calculate_pi(), 3.14159)\n\n    def test_calculate_pi_with_high_precision(self):\n        self.assertEqual(calculate_pi(10), 3.1415926536)\n\n    def test_calculate_pi_zero_precision(self):\n        self.assertEqual(calculate_pi(0), 3)\n\nif __name__ == '__main__':\n    unittest.main()",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/6d7fce85-84a5-49aa-b27f-5ffb3848a742/test_calculate_pi.py",
+      "lastModified": "2025-08-23T20:16:49.206Z"
+    }
+  ]
+}

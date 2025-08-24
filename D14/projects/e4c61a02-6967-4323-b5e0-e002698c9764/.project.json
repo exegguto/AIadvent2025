@@ -1,0 +1,31 @@
+{
+  "id": "e4c61a02-6967-4323-b5e0-e002698c9764",
+  "name": "Execution Process Test",
+  "description": "Testing detailed execution process display",
+  "language": "python",
+  "createdAt": "2025-08-24T04:11:25.515Z",
+  "updatedAt": "2025-08-24T04:11:37.727Z",
+  "files": [
+    {
+      "name": "main.py",
+      "content": "def add_numbers(a, b):\n    \"\"\"\n    Функция для вычисления суммы двух чисел.\n\n    :param a: Первое число\n    :param b: Второе число\n    :return: Сумма a и b\n    \"\"\"\n    return a + b",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/e4c61a02-6967-4323-b5e0-e002698c9764/main.py",
+      "lastModified": "2025-08-24T04:11:31.196Z"
+    },
+    {
+      "name": "test_main.py",
+      "content": "import unittest\nfrom main import add_numbers\n\nclass TestAddNumbers(unittest.TestCase):\n    \n    def test_add_integers(self):\n        self.assertEqual(add_numbers(1, 2), 3)\n    \n    def test_add_floats(self):\n        self.assertEqual(add_numbers(1.5, 2.5), 4.0)\n    \n    def test_add_negative_numbers(self):\n        self.assertEqual(add_numbers(-1, -1), -2)\n\n    def test_add_zero(self):\n        self.assertEqual(add_numbers(0, 0), 0)\n        self.assertEqual(add_numbers(5, 0), 5)\n\nif __name__ == '__main__':\n    unittest.main()",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/e4c61a02-6967-4323-b5e0-e002698c9764/test_main.py",
+      "lastModified": "2025-08-24T04:11:31.196Z"
+    },
+    {
+      "name": "run_docker.py",
+      "content": "print(\"Hello from Docker\")",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/e4c61a02-6967-4323-b5e0-e002698c9764/run_docker.py",
+      "lastModified": "2025-08-24T04:11:37.727Z"
+    }
+  ]
+}

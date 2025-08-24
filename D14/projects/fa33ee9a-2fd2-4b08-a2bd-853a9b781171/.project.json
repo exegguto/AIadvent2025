@@ -1,0 +1,24 @@
+{
+  "id": "fa33ee9a-2fd2-4b08-a2bd-853a9b781171",
+  "name": "UI Test Project",
+  "description": "Testing UI fixes",
+  "language": "javascript",
+  "createdAt": "2025-08-23T17:42:03.575Z",
+  "updatedAt": "2025-08-23T17:42:20.442Z",
+  "files": [
+    {
+      "name": "math.js",
+      "content": "function sum(a, b) {\n  // Validate the inputs\n  if (typeof a !== 'number' || typeof b !== 'number') {\n    throw new Error('Both arguments must be numbers')\n  }\n  return a + b;\n}\nmodule.exports = sum; // Export the function so it can be used in other files",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/fa33ee9a-2fd2-4b08-a2bd-853a9b781171/math.js",
+      "lastModified": "2025-08-23T17:42:10.337Z"
+    },
+    {
+      "name": "math.test.js",
+      "content": "const { add, multiply } = require('./math.js');\n\ndescribe('Math Functions', () => {\n\n  test('add() should add two numbers', () => {\n    expect(add(1, 1)).toBe(2);\n    expect(add(-1, 2)).toBe(1);\n    expect(add(0, 0)).toBe(0);\n  });\n\n  test('multiply() should multiply two numbers', () => {\n    expect(multiply(1, 1)).toBe(1);\n    expect(multiply(-1, 2)).toBe(-2);\n    expect(multiply(0, 1)).toBe(0);\n  });\n\n});",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/fa33ee9a-2fd2-4b08-a2bd-853a9b781171/math.test.js",
+      "lastModified": "2025-08-23T17:42:20.442Z"
+    }
+  ]
+}

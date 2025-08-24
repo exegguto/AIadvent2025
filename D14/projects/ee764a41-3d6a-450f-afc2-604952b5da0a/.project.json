@@ -1,0 +1,24 @@
+{
+  "id": "ee764a41-3d6a-450f-afc2-604952b5da0a",
+  "name": "File Viewer Test",
+  "description": "Testing file viewer functionality",
+  "language": "javascript",
+  "createdAt": "2025-08-23T17:34:12.932Z",
+  "updatedAt": "2025-08-23T17:34:33.047Z",
+  "files": [
+    {
+      "name": "calculator.js",
+      "content": "const calculator = {\n  add: function(a, b) {\n    return a + b;\n  },\n  subtract: function(a, b) {\n    return a - b;\n  },\n  multiply: function(a, b) {\n    return a * b;\n  },\n  divide: function(a, b) {\n    if(b == 0) {\n      throw \"Cannot divide by zero\";\n    }\n    return a / b;\n  }\n}\nmodule.exports = calculator;",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/ee764a41-3d6a-450f-afc2-604952b5da0a/calculator.js",
+      "lastModified": "2025-08-23T17:34:23.884Z"
+    },
+    {
+      "name": "calculator.test.js",
+      "content": "// Must import the calculator module you've written\nconst calculator = require('./calculator');\n\n// Now, we can write some test cases.\n\ndescribe(\"Calculator tests\", () => {\n\n  test(\"Addition\", () => {\n    let result = calculator.add(1,2);\n    expect(result).toBe(3);\n  });\n\n  test(\"Subtraction\", () => {\n    let result = calculator.sub(1,2);\n    expect(result).toBe(-1);\n  });\n\n  test(\"Multiplication\", () => {\n    let result = calculator.mul(2,2);\n    expect(result).toBe(4);\n  });\n\n  test(\"Division\", () => {\n    let result = calculator.div(2,2);\n    expect(result).toBe(1);\n  });\n\n  test(\"Division by zero\", () => {\n    expect(() => {\n      calculator.div(2,0)\n    }).toThrow('Cannot divide by zero');\n  });\n\n});",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/ee764a41-3d6a-450f-afc2-604952b5da0a/calculator.test.js",
+      "lastModified": "2025-08-23T17:34:33.047Z"
+    }
+  ]
+}

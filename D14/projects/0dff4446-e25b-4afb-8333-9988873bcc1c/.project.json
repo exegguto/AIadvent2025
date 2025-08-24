@@ -1,0 +1,31 @@
+{
+  "id": "0dff4446-e25b-4afb-8333-9988873bcc1c",
+  "name": "Test Project",
+  "description": "A test project for the new features",
+  "language": "python",
+  "createdAt": "2025-08-23T17:17:29.678Z",
+  "updatedAt": "2025-08-23T17:17:41.542Z",
+  "files": [
+    {
+      "name": "factorial.py",
+      "content": "def factorial(n):\n    if n == 0:\n        return 1\n    else:\n        return n * factorial(n-1)",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/0dff4446-e25b-4afb-8333-9988873bcc1c/factorial.py",
+      "lastModified": "2025-08-23T17:17:38.183Z"
+    },
+    {
+      "name": "factorial_test.py",
+      "content": "import unittest\nfrom factorial import factorial\n\nclass TestFactorial(unittest.TestCase):\n    def test_base_case(self):\n        self.assertEqual(factorial(0), 1)\n\n    def test_small_numbers(self):\n        self.assertEqual(factorial(1), 1)\n        self.assertEqual(factorial(5), 120)\n\n    def test_large_number(self):\n        self.assertEqual(factorial(10), 3628800)\n\nif __name__ == '__main__':\n    unittest.main()",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/0dff4446-e25b-4afb-8333-9988873bcc1c/factorial_test.py",
+      "lastModified": "2025-08-23T17:17:38.185Z"
+    },
+    {
+      "name": "main.py",
+      "content": "hello_world()",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/0dff4446-e25b-4afb-8333-9988873bcc1c/main.py",
+      "lastModified": "2025-08-23T17:17:41.542Z"
+    }
+  ]
+}

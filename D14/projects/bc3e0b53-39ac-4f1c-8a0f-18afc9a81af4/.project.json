@@ -1,0 +1,17 @@
+{
+  "id": "bc3e0b53-39ac-4f1c-8a0f-18afc9a81af4",
+  "name": "File Viewer Test",
+  "description": "Testing file viewer functionality",
+  "language": "javascript",
+  "createdAt": "2025-08-23T17:33:15.997Z",
+  "updatedAt": "2025-08-23T17:33:22.408Z",
+  "files": [
+    {
+      "name": "calculator.js",
+      "content": "class Calculator {\n    constructor() { }\n  \n    add(a, b) {\n        return a + b;\n    }\n\n    subtract(a, b) {\n        return a - b;\n    }\n\n    multiply(a, b) {\n        return a * b; \n    }\n  \n    divide(a, b) {\n        if(b == 0){\n            throw new Error(\"Cannot divide by zero\");\n        }\n        \n        return a / b;\n    }\n}\n\nmodule.exports = Calculator;",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/bc3e0b53-39ac-4f1c-8a0f-18afc9a81af4/calculator.js",
+      "lastModified": "2025-08-23T17:33:22.408Z"
+    }
+  ]
+}

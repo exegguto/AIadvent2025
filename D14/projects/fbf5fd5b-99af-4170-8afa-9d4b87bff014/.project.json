@@ -1,0 +1,9 @@
+{
+  "id": "fbf5fd5b-99af-4170-8afa-9d4b87bff014",
+  "name": "File Creation Test",
+  "description": "Testing if files are created when LLM generates code",
+  "language": "python",
+  "createdAt": "2025-08-23T19:59:23.573Z",
+  "updatedAt": "2025-08-23T19:59:23.573Z",
+  "files": []
+}

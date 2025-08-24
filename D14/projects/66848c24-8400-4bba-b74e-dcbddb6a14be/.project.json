@@ -1,0 +1,24 @@
+{
+  "id": "66848c24-8400-4bba-b74e-dcbddb6a14be",
+  "name": "Prompt Connection Test",
+  "description": "Testing if custom prompts are connected to dialog",
+  "language": "python",
+  "createdAt": "2025-08-23T19:04:22.623Z",
+  "updatedAt": "2025-08-23T19:05:02.947Z",
+  "files": [
+    {
+      "name": "add_function.py",
+      "content": "def add_numbers(num1, num2):\n    \"\"\"Принимает два числа и возвращает их сумму.\"\"\"\n    return num1 + num2",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/66848c24-8400-4bba-b74e-dcbddb6a14be/add_function.py",
+      "lastModified": "2025-08-23T19:05:02.945Z"
+    },
+    {
+      "name": "test_add_function.py",
+      "content": "import unittest\nfrom add_function import add_numbers\n\nclass TestAddFunction(unittest.TestCase):\n    def test_add_numbers(self):\n        self.assertEqual(add_numbers(3, 5), 8)\n        self.assertEqual(add_numbers(-2, 2), 0)\n        self.assertEqual(add_numbers(0, 0), 0)\n\nif __name__ == \"__main__\":\n    unittest.main()",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/66848c24-8400-4bba-b74e-dcbddb6a14be/test_add_function.py",
+      "lastModified": "2025-08-23T19:05:02.947Z"
+    }
+  ]
+}

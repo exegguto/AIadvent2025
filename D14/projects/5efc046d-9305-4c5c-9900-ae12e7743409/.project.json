@@ -1,0 +1,52 @@
+{
+  "id": "5efc046d-9305-4c5c-9900-ae12e7743409",
+  "name": "Prompt Connection Test",
+  "description": "Testing if custom prompts are connected to dialog",
+  "language": "python",
+  "createdAt": "2025-08-23T19:01:10.150Z",
+  "updatedAt": "2025-08-23T19:01:54.245Z",
+  "files": [
+    {
+      "name": "factorial.py",
+      "content": "def factorial(n):\n    if not isinstance(n, int) or n < 0:\n        raise ValueError(\"Factorial is undefined for non-integers and negative numbers\")\n    \n    result = 1\n    for i in range(1, n + 1):\n        result *= i\n    return result",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/5efc046d-9305-4c5c-9900-ae12e7743409/factorial.py",
+      "lastModified": "2025-08-23T19:01:20.895Z"
+    },
+    {
+      "name": "test_factorial.py",
+      "content": "import factorial\n\ndef test_factorial():\n    assert factorial.factorial(1) == 1\n    assert factorial.factorial(5) == 120\n    assert factorial.factorial(10) == 3628800\n\ndef test_factorial_errors():\n    with pytest.raises(ValueError):\n        factorial.factorial(-1)\n    with pytest.raises(ValueError):\n        factorial.factorial(1.5)",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/5efc046d-9305-4c5c-9900-ae12e7743409/test_factorial.py",
+      "lastModified": "2025-08-23T19:01:20.896Z"
+    },
+    {
+      "name": "test_hello.py",
+      "content": "import unittest\nfrom your_module import hello  # Импортируйте функцию hello из вашего модуля\n\nclass TestHello(unittest.TestCase):\n    def test_hello(self):\n        self.assertEqual(hello('World'), 'Hello, World!')\n\n    def test_hello_with_none(self):\n        with self.assertRaises(TypeError):\n            hello(None)\n\n    def test_hello_with_number(self):\n        with self.assertRaises(TypeError):\n            hello(123)\n\n\nif __name__ == '__main__':\n    unittest.main()",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/5efc046d-9305-4c5c-9900-ae12e7743409/test_hello.py",
+      "lastModified": "2025-08-23T19:01:31.102Z"
+    },
+    {
+      "name": "simple_server.py",
+      "content": "from http.server import HTTPServer, BaseHTTPRequestHandler\n\nclass SimpleHTTPRequestHandler(BaseHTTPRequestHandler):\n\n    def do_GET(self):\n        self.send_response(200)\n        self.end_headers()\n        self.wfile.write(b'Hello, World!')\n\ndef run(server_class=HTTPServer, handler_class=SimpleHTTPRequestHandler):\n    server_address = ('', 8000)\n    httpd = server_class(server_address, handler_class)\n    print(f'Starting server at http://localhost:8000')\n    httpd.serve_forever()\n\nif __name__ == '__main__':\n    run()",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/5efc046d-9305-4c5c-9900-ae12e7743409/simple_server.py",
+      "lastModified": "2025-08-23T19:01:45.547Z"
+    },
+    {
+      "name": "main.py",
+      "content": "def string_to_upper(input_string):\n    \"\"\" Converts a string into all uppercase\n    Args:\n    input_string : str : input string to convert\n    Returns:\n    str: String converted to uppercase\n    \"\"\"\n    return input_string.upper()",
+      "type": "code",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/5efc046d-9305-4c5c-9900-ae12e7743409/main.py",
+      "lastModified": "2025-08-23T19:01:54.241Z"
+    },
+    {
+      "name": "test_main.py",
+      "content": "import main\n\ndef test_string_to_upper():\n    assert main.string_to_upper('hello') == 'HELLO'\n    assert main.string_to_upper('Hello World!') == 'HELLO WORLD!'\n    assert main.string_to_upper('123') == '123'",
+      "type": "test",
+      "path": "/Users/vladimir/s21_school/1_Job/AI Advent 2025/D14/projects/5efc046d-9305-4c5c-9900-ae12e7743409/test_main.py",
+      "lastModified": "2025-08-23T19:01:54.245Z"
+    }
+  ]
+}
